@@ -19,7 +19,7 @@ variables <- read.table("UCI HAR Dataset/features.txt")
 variables <- as.character(variables[, 2])
 col_names <- c("subject", variables, "activity")
 
-# Merging test data 
+# Merging test data
 test <- cbind(subject_test, x_test, y_test)
 names(test) <- col_names
 
@@ -44,16 +44,12 @@ for(i in 1:nrow(activity_lables)) {
     data[data$activity == lable, "activity"] <- name
 }
 
-# Break rows by subject and activity 
+# Break rows by subject and activity
 # In each group of rows calculate the mean for each of the variables
 group_data <- aggregate(. ~ subject + activity, data, mean)
 
 # Order the grouped data by subject than by activity for better visualization of the data
 group_data <- group_data[order(group_data$subject, group_data$activity), ]
 
+# Save the data frame in a new file
 write.csv(x = group_data, "group_data.csv")
-
-
-
-
-
