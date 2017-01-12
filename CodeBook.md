@@ -5,8 +5,11 @@
 2. Extracting the file
 
 3. Prepare test/train data sets:
+
   3.1 Reading data set from the files X_*.txt and y_*.txt (* can be test or train)
+
   3.2 Reading subject data from the files subject_*.txt
+
   3.3 For each test or train, binding the columns of the all above (e.g for test: subject_column | x_test_columns | y_test_column)
 
 4. Reading data's feature names (the column names for the sets) from the file features.txt
