@@ -28,4 +28,4 @@
 
 11. Order the data frame by subject than by activity
 
-11. Save the data frame in a new file, group_data.csv
+11. Save the data frame in a new file, tidy_data.csv

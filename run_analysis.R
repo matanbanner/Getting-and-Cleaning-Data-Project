@@ -52,4 +52,4 @@ group_data <- aggregate(. ~ subject + activity, data, mean)
 group_data <- group_data[order(group_data$subject, group_data$activity), ]
 
 # Save the data frame in a new file
-write.csv(x = group_data, "group_data.csv")
+write.csv(x = group_data, "tidy_data.csv")
