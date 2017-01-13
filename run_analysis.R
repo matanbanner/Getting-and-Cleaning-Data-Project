@@ -30,26 +30,30 @@ names(train) <- col_names
 # Merging test and train
 data <- rbind(test, train)
 
-# extract mean() and standard deviation columns
-filtered_varibables <- grep(col_names,pattern = "mean\\(\\)|std\\(\\)", value = TRUE)
+# extract mean and standard deviation columns
+filtered_varibables <- grep(col_names,pattern = "[Mm]ean|[Ss]td", value = TRUE)
 col_names2 <- c("subject", filtered_varibables, "activity")
 data <- data[, col_names2]
 
-# Uses descriptive activity names to name the activities in the data set
-activity_lables <- read.table(file = "UCI HAR Dataset/activity_labels.txt", col.names = c("lable", "name"), colClasses = c("integer", "character"))
+# Add descriptive activity names column
+data <- cbind(data, data$activity)
+names(data)[length(data)] <- "activity.code"
+names(data)[length(data) - 1] <- "activity.name"
 
+activity_lables <- read.table(file = "UCI HAR Dataset/activity_labels.txt", col.names = c("lable", "name"), colClasses = c("integer", "character"))
 for(i in 1:nrow(activity_lables)) {
     lable <- activity_lables$lable[i]
     name <- activity_lables$name[i]
-    data[data$activity == lable, "activity"] <- name
+    data[data$activity.code == lable, "activity.name"] <- name
 }
 
 # Break rows by subject and activity
 # In each group of rows calculate the mean for each of the variables
-group_data <- aggregate(. ~ subject + activity, data, mean)
+group_data <- aggregate(. ~ subject + activity.name + activity.code, data, mean)
 
 # Order the grouped data by subject than by activity for better visualization of the data
-group_data <- group_data[order(group_data$subject, group_data$activity), ]
+group_data <- group_data[order(group_data$subject, group_data$activity.name), ]
 
 # Save the data frame in a new file
-write.csv(x = group_data, "tidy_data.csv")
+write.table(x = group_data, "tidy_data.txt", row.name=FALSE)
+
