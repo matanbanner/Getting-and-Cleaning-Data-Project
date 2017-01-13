@@ -4,6 +4,7 @@ This repository hosts the R code and documentation files for the Data Science's 
 
 ## How to run the script
 Just run it anywhere you want using R console
+
 The output for this script is a new tidy data set stored in csv file, tidy_data.csv
 
 
